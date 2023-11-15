@@ -46,28 +46,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tablero.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="JuegoPpal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="JuegoPpal.Designer.cs">
+      <DependentUpon>JuegoPpal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OperacionesBasicas.cs" />
+    <Compile Include="ParOrdenado.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Tablero.cs" />
+    <Compile Include="OpcionesFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpcionesFrm.Designer.cs">
+      <DependentUpon>OpcionesFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="OpcionesFrm.resx">
+      <DependentUpon>OpcionesFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JuegoPpal.resx">
+      <DependentUpon>JuegoPpal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -104,6 +115,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="img\6.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\elimina.jpg" />
+    <Content Include="img\0a.jpg" />
+    <Content Include="img\1a.jpg" />
+    <Content Include="img\2b.jpg" />
+    <Content Include="img\3b.jpg" />
+    <Content Include="img\4b.jpg" />
+    <Content Include="img\5b.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
