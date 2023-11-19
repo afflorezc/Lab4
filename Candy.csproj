@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="inputFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="inputFrm.Designer.cs">
+      <DependentUpon>inputFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="JuegoPpal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +74,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="inputFrm.resx">
+      <DependentUpon>inputFrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OpcionesFrm.resx">
       <DependentUpon>OpcionesFrm.cs</DependentUpon>
     </EmbeddedResource>

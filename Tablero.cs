@@ -243,6 +243,22 @@ namespace Candy
             }
         }
         /*
+         * Método que elimina una jugada una vez se ha ejecutado 
+         */
+        public void removerJugada(ParOrdenado jugada)
+        {
+            List<ParOrdenado> copiaJugadas = new List<ParOrdenado> { };
+            foreach(ParOrdenado movimiento in jugadasPosibles)
+            {
+                if (!jugada.esIgual(movimiento))
+                {
+                    copiaJugadas.Add(movimiento);
+                }
+            }
+            jugadasPosibles.Clear();
+            jugadasPosibles = copiaJugadas;
+        }
+        /*
          * Método que evalua, dado un par ordenado que representa un movimiento o jugada en
          * el tablero, si este movimiento es una jugada real posible, es decir, si esta en
          * la lista de jugadas que formarían alguna terna al intercambiar las celdas
@@ -422,13 +438,344 @@ namespace Candy
             }
 
         }
+        /*
+         * Método que comprueba si se forma una terna en una misma columna de acuerdo a la
+         * posicion dada por los parametros de fila y columna, siendo dicha posicion, la posicion
+         * central de la terna
+         */
+        public void ternaColMedio(int fila, int col)
+        {
+            if (fila > 0 && fila < cantidadFil-2)
+            {
+                if (valores[fila -1, col] == valores[fila, col])
+                {
+                    // Se forma la terna en la fila siguiente
+                    if (valores[fila+1, col] == valores[fila, col])
+                    {
+                        agregarPosicion(fila - 1, col, 1);
+                        agregarPosicion(fila, col, 1);
+                        agregarPosicion(fila + 1, col, 1);
+                        // se evalua si es cuarteta o quinteta
+                        // hacia abajo
+                        int i = fila + 2;
+                        bool bandera = true;
+                        while (i < cantidadFil - 1 && bandera)
+                        {
+                            if (valores[i, col] == valores[fila, col])
+                            {
+                                agregarPosicion(i, col, 1);
+                            }
+                            else
+                            {
+                                bandera = false;
+                            }
+                            i++;
+                        }
+                        // hacia arriba
+                        i = fila - 2;
+                        bandera = true;
+                        while (i >= 0 && bandera)
+                        {
+                            if (valores[i, col] == valores[fila, col])
+                            {
+                                agregarPosicion(i, col, 1);
+                            }
+                            else
+                            {
+                                bandera = false;
+                            }
+                            i--;
+                        }
+                    }
+                }
+            }
+        }
+        /*
+         * Método que comprueba si se forma una terna en una misma columna de acuerdo a una
+         * posicion dada por los parametros fila y columna, siendo la posicion entregada
+         * la celda más arriba de la combinación
+         */
+        public void ternaColAbajo(int fila, int col)
+        {
+            if(fila < cantidadFil -3)
+            {
+                if (valores[fila+1, col] == valores[fila, col])
+                {
+                    // se forma la terna
+                    if (valores[fila +2, col] == valores[fila, col])
+                    {
+                        agregarPosicion(fila, col, 1);
+                        agregarPosicion(fila + 1, col, 1);
+                        agregarPosicion(fila + 2, col, 1);
+                        // Se evalua ahora si es cuarteta o quinteta
+                        int i = fila + 3;
+                        bool bandera = true;
+                        while (i < cantidadFil - 1 && bandera)
+                        {
+                            if (valores[i, col] == valores[fila, col])
+                            {
+                                agregarPosicion(i, col, 1);
+                            }
+                            else
+                            {
+                                bandera = false;
+                            }
+                            i++;
+                        }
+                        i = fila - 1;
+                        bandera = true;
+                        while (i >= 0 && bandera)
+                        {
+                            if (valores[i, col] == valores[fila, col])
+                            {
+                                agregarPosicion(i, col, 1);
+                            }
+                            else
+                            {
+                                bandera = false;
+                            }
+                            i--;
+                        }
+                    }
+                }
+            }
+        }
+        /*
+         * Método que comprueba si se forma una terna en una misma columna de acuerdo a una
+         * posicion dada por los parametros fila y columna, siendo la posicion entregada
+         * la celda más abajo de la combinación
+         */
+        public void ternaColArriba(int fila, int col)
+        {
+            if (fila > 1)
+            {
+                if (valores[fila-1, col] == valores[fila, col])
+                {
+                    // Se formó la terna
+                    if (valores[fila-2, col] == valores[fila, col])
+                    {
+                        agregarPosicion(fila - 2, col, 1);
+                        agregarPosicion(fila - 1, col, 1);
+                        agregarPosicion(fila, col, 1);
+                        // Se evalua ahora si es cuarteta o quinteta
+                        int i = fila + 1;
+                        bool bandera = true;
+                        while (i < cantidadFil - 1 && bandera)
+                        {
+                            if (valores[i, col] == valores[fila, col])
+                            {
+                                agregarPosicion(i, col, 1);
+                            }
+                            else
+                            {
+                                bandera = false;
+                            }
+                            i++;
+                        }
+                        i = fila - 3;
+                        bandera = true;
+                        while (i >= 0 && bandera)
+                        {
+                            if (valores[i, col] == valores[fila, col])
+                            {
+                                agregarPosicion(i, col, 1);
+                            }
+                            else
+                            {
+                                bandera = false;
+                            }
+                            i--;
+                        }
+                    }
+                }
+            }
+        }
+
+        /*
+         * Método que comprueba si se forma una terna en una misma fila de acuerdo a una posicion
+         * dada siendo la posicion dada la celda intermedia de la terna
+         */
+        public void ternaFilaMedio(int fila, int col)
+        {
+            // Se evalua formacion de terna en la misma fila
+            if (col > 0 && col < cantidadCol -1)
+            {
+                if (valores[fila, col - 1] == valores[fila, col])
+                {
+                    // se formó una terna siendo la celda dada la del medio
+                    if (valores[fila, col +1] == valores[fila, col])
+                    {
+                        agregarPosicion(fila, col - 1, 0);
+                        agregarPosicion(fila, col, 0);
+                        agregarPosicion(fila, col +1, 0);
+                        // Se evalua ahora si es cuarteta o quinteta
+                        int j = col + 1;
+                        bool bandera = true;
+                        while (j < cantidadCol - 1 && bandera)
+                        {
+                            if (valores[fila, j] == valores[fila, col])
+                            {
+                                agregarPosicion(fila, j, 0);
+                            }
+                            else
+                            {
+                                bandera = false;
+                            }
+                            j++;
+                        }
+                        j = col - 2;
+                        bandera = true;
+                        while(j>=0 && bandera)
+                        {
+                            if (valores[fila, j] == valores[fila, col])
+                            {
+                                agregarPosicion(fila, j, 0);
+                            }
+                            else
+                            {
+                                bandera = false;
+                            }
+                            j--;
+                        }
+
+                    }
+                }
+            }
+        }
+        /*
+         * Método que comprueba si se forma una terna en una misma fila de acuerdo a una posicion
+         * dada siendo la posicion dada la celda más a la derecha de la terna
+         */
+        public void ternaFilaAtras(int fila, int col)
+        {
+            // Se evalua formacion de terna en la misma fila
+            if (col > 1)
+            {
+                if (valores[fila, col - 1] == valores[fila, col])
+                {
+                    // se formó una terna con las dos posiciones anteriores
+                    if (valores[fila, col - 2] == valores[fila, col])
+                    {
+                        agregarPosicion(fila, col - 2, 0);
+                        agregarPosicion(fila, col - 1, 0);
+                        agregarPosicion(fila, col, 0);
+                        // Se evalua ahora si es cuarteta o quinteta (hacia la derecha)
+                        int j = col + 1;
+                        bool bandera = true;
+                        while (j < cantidadCol - 1 && bandera)
+                        {
+                            if (valores[fila, j] == valores[fila, col])
+                            {
+                                agregarPosicion(fila, j, 0);
+                            }
+                            else
+                            {
+                                bandera = false;
+                            }
+                            j++;
+                        }
+                        // hacia la izquierda
+                        bandera = true;
+                        j = col - 3;
+                        while(j>=0 && bandera)
+                        {
+                            if (valores[fila, j] == valores[fila, col])
+                            {
+                                agregarPosicion(fila, j, 0);
+                            }
+                            else
+                            {
+                                bandera = false;
+                            }
+                            j--;
+                        }
+                    }
+                }
+            }
+        }
+
+        /*
+         * Método que comprueba si se forma una terna en una misma fila de acuerdo a una posicion
+         * dada siendo la posicion dada la celda más a la izquierda
+         */
+         public void ternaFilaAdelante(int fila, int col)
+        {
+            if(col < cantidadCol - 2)
+            {
+                if (valores[fila, col+1] == valores[fila, col])
+                {
+                    // se formó la terna
+                    if (valores[fila, col+2] == valores[fila, col])
+                    {
+                        agregarPosicion(fila, col, 0);
+                        agregarPosicion(fila, col + 1, 0);
+                        agregarPosicion(fila, col + 2, 0);
+                    }
+                    // Se evalua ahora si es cuarteta o quinteta (hacia la derecha)
+                    int j = col + 3;
+                    bool bandera = true;
+                    while (j < cantidadCol - 1 && bandera)
+                    {
+                        if (valores[fila, j] == valores[fila, col])
+                        {
+                            agregarPosicion(fila, j, 0);
+                        }
+                        else
+                        {
+                            bandera = false;
+                        }
+                        j++;
+                    }
+                    // hacia la izquierda
+                    bandera = true;
+                    j = col - 1;
+                    while (j >= 0 && bandera)
+                    {
+                        if (valores[fila, j] == valores[fila, col])
+                        {
+                            agregarPosicion(fila, j, 0);
+                        }
+                        else
+                        {
+                            bandera = false;
+                        }
+                        j--;
+                    }
+                }
+            }
+        }
+
+        /*
+         * Método que evalua si se combinan celdas contiguas formando ternas o cuartetas
+         * una vez se ha procesado una jugada y se han movido las filas superiores 
+         * correspondientes a la terna eliminada. Recibe como parametro el vector que indica
+         * entre cuales filas y columnas ocurrieron los cambios y se concentra la busqueda en
+         * dicha region
+         */
+        public void nuevasTernas(int[] fronteras)
+        {
+            for(int i = fronteras[1]; i <= fronteras[0]; i++)
+            {
+                for(int j = fronteras[3]; j <= fronteras[2]; j++)
+                {
+                   // se evalua formacion de ternas en la misma fila
+                   ternaFilaAtras(i, j);
+                   ternaFilaMedio(i, j);
+                   ternaFilaAdelante(i, j);
+                    // Se evalua formacion de ternas en la misma columna
+                   ternaColArriba(i, j);
+                   ternaColMedio(i, j);
+                   ternaColAbajo(i, j);
+                }
+            }
+        }
 
         /*
          * Método que evalua el número de jugadas posibles que se tiene en el tablero actual
          * de acuerdo a la asignación de valores actuales de la matriz que representa la
          * distriucción de caramelos en la pantalla
          */
-        private void encontrarJugadas()
+        public void encontrarJugadas()
         {
             // se evaluan si existen jugadas posicion a posicion
             for (int i = 0; i < valores.GetLength(0); i++)

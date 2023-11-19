@@ -287,6 +287,7 @@
             this.cancelarBtn.TabIndex = 1;
             this.cancelarBtn.Text = "Cancelar";
             this.cancelarBtn.UseVisualStyleBackColor = true;
+            this.cancelarBtn.Click += new System.EventHandler(this.cancelarBtn_Click);
             // 
             // OpcionesFrm
             // 
